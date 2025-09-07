@@ -15,7 +15,7 @@ public static class Algorithms {
             double time3 = Time(Algorithm3, n, 10);
             Console.WriteLine("{0,15}{1,15}{2,15}{3,15}{4,15:0.00000}{5,15:0.00000}{6,15:0.00000}", n, count1, count2,
                 count3, time1, time2,
-                time3);
+                time3); 
         }
     }
 
