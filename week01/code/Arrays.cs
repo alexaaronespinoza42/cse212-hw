@@ -40,7 +40,7 @@ public static class Arrays
             // We use (i+1) because:
             // - In this first iteration, i = 0, but we want 1 * number and not 0 * number
             // - In the second iteration, i = 1, and we want 2 * number
-            // In general the kth multiple is calculates as number * k
+            // In general the kth multiple is calculated as number * k
             // and since 'i' starts at 0, we use (i+1)
 
             result[i] = number * (i + 1);
@@ -145,7 +145,7 @@ public static class Arrays
         // =========================================
         // 7) Insert 'tail' to the beginning
         // =========================================
-        // 'InsertRange(index, list)' inserts allelements from another list at the specified position
+        // 'InsertRange(index, list)' inserts all elements from another list at the specified position
         // We place 'tail' at the beggining (index 0) of 'data'
         data.InsertRange(0, tail);
         // Final result: data = {5,6,7,8,9,1,2,3,4} -> list rotated correctly

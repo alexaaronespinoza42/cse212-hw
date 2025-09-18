@@ -9,9 +9,13 @@
 /// </summary>
 public class TakingTurnsQueue
 {
-    private readonly PersonQueue _people = new();
+    // Changed PersonQueue to the built-in Queue<Person> to ensure proper FIFO behavior.
+    // The previous implementation of PersonQueue was not behaving as a true queue,
+    // which caused incorrect test results (Sue was coming out before Bob).
+    private readonly Queue<Person> _people = new Queue<Person>();
 
-    public int Length => _people.Length;
+    // Updated to use Count instead of Length (Queue<T> uses Count).
+    public int Length => _people.Count;
 
     /// <summary>
     /// Add new people to the queue with a name and number of turns
@@ -33,18 +37,25 @@ public class TakingTurnsQueue
     /// </summary>
     public Person GetNextPerson()
     {
-        if (_people.IsEmpty())
+        if (_people.Count == 0)
         {
             throw new InvalidOperationException("No one in the queue.");
         }
         else
         {
             Person person = _people.Dequeue();
-            if (person.Turns > 1)
+            // If the person has infinite turns (0 or less), they are always re-added
+            if (person.Turns <= 0)
+            {
+                _people.Enqueue(person);
+            }
+            // If the person has more than 1 turn left, decrease and re-add
+            else if (person.Turns > 1)
             {
                 person.Turns -= 1;
                 _people.Enqueue(person);
             }
+            // If the person had exactly 1 turn left, they are not re-added
 
             return person;
         }
@@ -52,6 +63,6 @@ public class TakingTurnsQueue
 
     public override string ToString()
     {
-        return _people.ToString();
+        return string.Join(", ", _people);
     }
 }
